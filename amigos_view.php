@@ -130,10 +130,10 @@
 	$x->TableIcon = 'table.gif';
 	$x->PrimaryKey = '`amigos`.`LLAVE`';
 
-	$x->ColWidth = [150, 150, 150, 150, 150, 150, 150, 150, 150, 150, 150, ];
-	$x->ColCaption = ['LLAVE', 'ES LIDER:', 'LIDER', 'CEDULA', 'NOMBRE', 'PUESTO', 'NOMBRE DEL PUESTO', 'MESA', 'CELULAR', 'DIRECCION', 'ESTADO', ];
-	$x->ColFieldName = ['LLAVE', 'ESLIDER', 'LIDER', 'CEDULA', 'NOMBRE', 'PUESTO', 'NOMPUESTO', 'MESA', 'CELULAR', 'DIRECCION', 'ESTADO', ];
-	$x->ColNumber  = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 13, ];
+	$x->ColWidth = [150, 150, 150, 150, 150, 150, 150, 150, 150, ];
+	$x->ColCaption = ['LLAVE', 'ES LIDER:', 'CEDULA', 'NOMBRE', 'NOMBRE DEL PUESTO', 'MESA', 'CELULAR', 'DIRECCION', 'ESTADO', ];
+	$x->ColFieldName = ['LLAVE', 'ESLIDER', 'CEDULA', 'NOMBRE', 'NOMPUESTO', 'MESA', 'CELULAR', 'DIRECCION', 'ESTADO', ];
+	$x->ColNumber  = [1, 2, 4, 5, 7, 8, 9, 10, 13, ];
 
 	// template paths below are based on the app main directory
 	$x->Template = 'templates/amigos_templateTV.html';
