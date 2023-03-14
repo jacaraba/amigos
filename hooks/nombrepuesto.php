@@ -15,7 +15,7 @@ if (!$conn) {
 }
 
 // Consulta a la base de datos
-$sql = "SELECT * FROM `divpol2022` where `direccion` = ".$direccion." LIMIT 1";
+$sql = "SELECT * FROM `divpol2022` where `direccion` = '".$direccion."' LIMIT 1";
 $resultado = mysqli_query($conn, $sql);
 
 // Crea un arreglo con los resultados de la consulta
