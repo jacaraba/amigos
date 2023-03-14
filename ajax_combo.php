@@ -46,17 +46,6 @@
 			],
 		],
 		'amigos' => [
-			'LIDER' => [
-				'parent_table' => 'lideres',
-				'parent_pk_field' => 'LLAVE',
-				'parent_caption' => 'IF(CHAR_LENGTH(`lideres`.`CEDULA`) || CHAR_LENGTH(`lideres`.`NOMBRE`), CONCAT_WS(\'\', `lideres`.`CEDULA`, \'-\', `lideres`.`NOMBRE`), \'\')',
-				'parent_from' => '`lideres` LEFT JOIN `divpol2022` as divpol20221 ON `divpol20221`.`PUESTO`=`lideres`.`PUESTO` ',
-				'filterers' => [],
-				'custom_query' => '',
-				'inherit_permissions' => false,
-				'list_type' => 0,
-				'not_null' => false,
-			],
 		],
 		'divpol2022' => [
 		],

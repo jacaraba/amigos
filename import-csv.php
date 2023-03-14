@@ -10,7 +10,6 @@
 			return $data;
 		},
 		'amigos' => function($data, $options = []) {
-			if(isset($data['LIDER'])) $data['LIDER'] = pkGivenLookupText($data['LIDER'], 'amigos', 'LIDER');
 
 			return $data;
 		},

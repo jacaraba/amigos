@@ -13,6 +13,7 @@ function amigos_insert(&$error_message = '') {
 	if(!$arrPerm['insert']) return false;
 
 	$data = [
+		'LIDER' => Request::val('LIDER', '1111111111'),
 		'CEDULA' => Request::val('CEDULA', ''),
 		'NOMBRE' => Request::val('NOMBRE', ''),
 		'PUESTO' => Request::val('PUESTO', ''),
@@ -42,11 +43,6 @@ function amigos_insert(&$error_message = '') {
 	}
 
 	$recID = db_insert_id(db_link());
-
-	// automatic LIDER if passed as filterer
-	if(Request::val('filterer_LIDER')) {
-		sql("UPDATE `amigos` SET `LIDER`='" . makeSafe(Request::val('filterer_LIDER')) . "' WHERE `LLAVE`='" . makeSafe($recID, false) . "'", $eo);
-	}
 
 	update_calc_fields('amigos', $recID, calculated_fields()['amigos']);
 
@@ -120,6 +116,7 @@ function amigos_update(&$selected_id, &$error_message = '') {
 	if(!check_record_permission('amigos', $selected_id, 'edit')) return false;
 
 	$data = [
+		'LIDER' => Request::val('LIDER', ''),
 		'CEDULA' => Request::val('CEDULA', ''),
 		'NOMBRE' => Request::val('NOMBRE', ''),
 		'PUESTO' => Request::val('PUESTO', ''),
@@ -208,7 +205,6 @@ function amigos_form($selected_id = '', $AllowUpdate = 1, $AllowInsert = 1, $All
 		$dvprint = true;
 	}
 
-	$filterer_LIDER = Request::val('filterer_LIDER');
 
 	// populate filterers, starting from children to grand-parents
 
@@ -229,8 +225,6 @@ function amigos_form($selected_id = '', $AllowUpdate = 1, $AllowInsert = 1, $All
 		$combo_ESLIDER->ListData = $combo_ESLIDER->ListItem;
 	}
 	$combo_ESLIDER->SelectName = 'ESLIDER';
-	// combobox: LIDER
-	$combo_LIDER = new DataCombo;
 	// combobox: ESTADO
 	$combo_ESTADO = new Combo;
 	$combo_ESTADO->ListType = 0;
@@ -269,7 +263,6 @@ function amigos_form($selected_id = '', $AllowUpdate = 1, $AllowInsert = 1, $All
 			return error_message($Translation['No records found'], 'amigos_view.php', false);
 		}
 		$combo_ESLIDER->SelectedData = $row['ESLIDER'];
-		$combo_LIDER->SelectedData = $row['LIDER'];
 		$combo_ESTADO->SelectedData = $row['ESTADO'];
 		$urow = $row; /* unsanitized data */
 		$row = array_map('safe_html', $row);
@@ -278,12 +271,9 @@ function amigos_form($selected_id = '', $AllowUpdate = 1, $AllowInsert = 1, $All
 		$filterOperator = Request::val('FilterOperator');
 		$filterValue = Request::val('FilterValue');
 		$combo_ESLIDER->SelectedText = (isset($filterField[1]) && $filterField[1] == '2' && $filterOperator[1] == '<=>' ? $filterValue[1] : 'VOTANTE');
-		$combo_LIDER->SelectedData = $filterer_LIDER;
 		$combo_ESTADO->SelectedText = (isset($filterField[1]) && $filterField[1] == '13' && $filterOperator[1] == '<=>' ? $filterValue[1] : 'INGRESADO');
 	}
 	$combo_ESLIDER->Render();
-	$combo_LIDER->HTML = '<span id="LIDER-container' . $rnd1 . '"></span><input type="hidden" name="LIDER" id="LIDER' . $rnd1 . '" value="' . html_attr($combo_LIDER->SelectedData) . '">';
-	$combo_LIDER->MatchText = '<span id="LIDER-container-readonly' . $rnd1 . '"></span><input type="hidden" name="LIDER" id="LIDER' . $rnd1 . '" value="' . html_attr($combo_LIDER->SelectedData) . '">';
 	$combo_ESTADO->Render();
 
 	ob_start();
@@ -291,95 +281,11 @@ function amigos_form($selected_id = '', $AllowUpdate = 1, $AllowInsert = 1, $All
 
 	<script>
 		// initial lookup values
-		AppGini.current_LIDER__RAND__ = { text: "<?php echo ($selected_id ? '' : '1111111111'); ?>", value: "<?php echo addslashes($selected_id ? $urow['LIDER'] : htmlspecialchars($filterer_LIDER, ENT_QUOTES)); ?>"};
 
 		jQuery(function() {
 			setTimeout(function() {
-				if(typeof(LIDER_reload__RAND__) == 'function') LIDER_reload__RAND__();
 			}, 50); /* we need to slightly delay client-side execution of the above code to allow AppGini.ajaxCache to work */
 		});
-		function LIDER_reload__RAND__() {
-		<?php if(($AllowUpdate || $AllowInsert) && !$dvprint) { ?>
-
-			$j("#LIDER-container__RAND__").select2({
-				/* initial default value */
-				initSelection: function(e, c) {
-					$j.ajax({
-						url: 'ajax_combo.php',
-						dataType: 'json',
-						<?php if(!$selected_id && !$filterer_LIDER) { ?>
-							data: { text: '1111111111', t: 'amigos', f: 'LIDER' },
-						<?php } else { ?>
-							data: { id: AppGini.current_LIDER__RAND__.value, t: 'amigos', f: 'LIDER' },
-						<?php } ?>
-
-						success: function(resp) {
-							c({
-								id: resp.results[0].id,
-								text: resp.results[0].text
-							});
-							$j('[name="LIDER"]').val(resp.results[0].id);
-							$j('[id=LIDER-container-readonly__RAND__]').html('<span class="match-text" id="LIDER-match-text">' + resp.results[0].text + '</span>');
-							if(resp.results[0].id == '<?php echo empty_lookup_value; ?>') { $j('.btn[id=lideres_view_parent]').hide(); } else { $j('.btn[id=lideres_view_parent]').show(); }
-
-
-							if(typeof(LIDER_update_autofills__RAND__) == 'function') LIDER_update_autofills__RAND__();
-						}
-					});
-				},
-				width: '100%',
-				formatNoMatches: function(term) { return '<?php echo addslashes($Translation['No matches found!']); ?>'; },
-				minimumResultsForSearch: 5,
-				loadMorePadding: 200,
-				ajax: {
-					url: 'ajax_combo.php',
-					dataType: 'json',
-					cache: true,
-					data: function(term, page) { return { s: term, p: page, t: 'amigos', f: 'LIDER' }; },
-					results: function(resp, page) { return resp; }
-				},
-				escapeMarkup: function(str) { return str; }
-			}).on('change', function(e) {
-				AppGini.current_LIDER__RAND__.value = e.added.id;
-				AppGini.current_LIDER__RAND__.text = e.added.text;
-				$j('[name="LIDER"]').val(e.added.id);
-				if(e.added.id == '<?php echo empty_lookup_value; ?>') { $j('.btn[id=lideres_view_parent]').hide(); } else { $j('.btn[id=lideres_view_parent]').show(); }
-
-
-				if(typeof(LIDER_update_autofills__RAND__) == 'function') LIDER_update_autofills__RAND__();
-			});
-
-			if(!$j("#LIDER-container__RAND__").length) {
-				$j.ajax({
-					url: 'ajax_combo.php',
-					dataType: 'json',
-					data: { id: AppGini.current_LIDER__RAND__.value, t: 'amigos', f: 'LIDER' },
-					success: function(resp) {
-						$j('[name="LIDER"]').val(resp.results[0].id);
-						$j('[id=LIDER-container-readonly__RAND__]').html('<span class="match-text" id="LIDER-match-text">' + resp.results[0].text + '</span>');
-						if(resp.results[0].id == '<?php echo empty_lookup_value; ?>') { $j('.btn[id=lideres_view_parent]').hide(); } else { $j('.btn[id=lideres_view_parent]').show(); }
-
-						if(typeof(LIDER_update_autofills__RAND__) == 'function') LIDER_update_autofills__RAND__();
-					}
-				});
-			}
-
-		<?php } else { ?>
-
-			$j.ajax({
-				url: 'ajax_combo.php',
-				dataType: 'json',
-				data: { id: AppGini.current_LIDER__RAND__.value, t: 'amigos', f: 'LIDER' },
-				success: function(resp) {
-					$j('[id=LIDER-container__RAND__], [id=LIDER-container-readonly__RAND__]').html('<span class="match-text" id="LIDER-match-text">' + resp.results[0].text + '</span>');
-					if(resp.results[0].id == '<?php echo empty_lookup_value; ?>') { $j('.btn[id=lideres_view_parent]').hide(); } else { $j('.btn[id=lideres_view_parent]').show(); }
-
-					if(typeof(LIDER_update_autofills__RAND__) == 'function') LIDER_update_autofills__RAND__();
-				}
-			});
-		<?php } ?>
-
-		}
 	</script>
 	<?php
 
@@ -464,6 +370,7 @@ function amigos_form($selected_id = '', $AllowUpdate = 1, $AllowInsert = 1, $All
 	// set records to read only if user can't insert new records and can't edit current record
 	if(($selected_id && !$AllowUpdate && !$AllowInsert) || (!$selected_id && !$AllowInsert)) {
 		$jsReadOnly = '';
+		$jsReadOnly .= "\tjQuery('#LIDER').replaceWith('<div class=\"form-control-static\" id=\"LIDER\">' + (jQuery('#LIDER').val() || '') + '</div>');\n";
 		$jsReadOnly .= "\tjQuery('#CEDULA').replaceWith('<div class=\"form-control-static\" id=\"CEDULA\">' + (jQuery('#CEDULA').val() || '') + '</div>');\n";
 		$jsReadOnly .= "\tjQuery('#NOMBRE').replaceWith('<div class=\"form-control-static\" id=\"NOMBRE\">' + (jQuery('#NOMBRE').val() || '') + '</div>');\n";
 		$jsReadOnly .= "\tjQuery('#PUESTO').replaceWith('<div class=\"form-control-static\" id=\"PUESTO\">' + (jQuery('#PUESTO').val() || '') + '</div>');\n";
@@ -482,14 +389,11 @@ function amigos_form($selected_id = '', $AllowUpdate = 1, $AllowInsert = 1, $All
 	// process combos
 	$templateCode = str_replace('<%%COMBO(ESLIDER)%%>', $combo_ESLIDER->HTML, $templateCode);
 	$templateCode = str_replace('<%%COMBOTEXT(ESLIDER)%%>', $combo_ESLIDER->SelectedData, $templateCode);
-	$templateCode = str_replace('<%%COMBO(LIDER)%%>', $combo_LIDER->HTML, $templateCode);
-	$templateCode = str_replace('<%%COMBOTEXT(LIDER)%%>', $combo_LIDER->MatchText, $templateCode);
-	$templateCode = str_replace('<%%URLCOMBOTEXT(LIDER)%%>', urlencode($combo_LIDER->MatchText), $templateCode);
 	$templateCode = str_replace('<%%COMBO(ESTADO)%%>', $combo_ESTADO->HTML, $templateCode);
 	$templateCode = str_replace('<%%COMBOTEXT(ESTADO)%%>', $combo_ESTADO->SelectedData, $templateCode);
 
 	/* lookup fields array: 'lookup field name' => ['parent table name', 'lookup field caption'] */
-	$lookup_fields = ['LIDER' => ['lideres', 'LIDER'], ];
+	$lookup_fields = [];
 	foreach($lookup_fields as $luf => $ptfc) {
 		$pt_perm = getTablePermissions($ptfc[0]);
 
@@ -565,8 +469,8 @@ function amigos_form($selected_id = '', $AllowUpdate = 1, $AllowInsert = 1, $All
 		$templateCode = str_replace('<%%URLVALUE(LLAVE)%%>', urlencode(''), $templateCode);
 		$templateCode = str_replace('<%%VALUE(ESLIDER)%%>', 'VOTANTE', $templateCode);
 		$templateCode = str_replace('<%%URLVALUE(ESLIDER)%%>', urlencode('VOTANTE'), $templateCode);
-		$templateCode = str_replace('<%%VALUE(LIDER)%%>', ( Request::val('FilterField')[1]=='3' && Request::val('FilterOperator')[1]=='<=>' ? $combo_LIDER->SelectedData : '1111111111'), $templateCode);
-		$templateCode = str_replace('<%%URLVALUE(LIDER)%%>', urlencode( Request::val('FilterField')[1]=='3' && Request::val('FilterOperator')[1]=='<=>' ? $combo_LIDER->SelectedData : '1111111111'), $templateCode);
+		$templateCode = str_replace('<%%VALUE(LIDER)%%>', '1111111111', $templateCode);
+		$templateCode = str_replace('<%%URLVALUE(LIDER)%%>', urlencode('1111111111'), $templateCode);
 		$templateCode = str_replace('<%%VALUE(CEDULA)%%>', '', $templateCode);
 		$templateCode = str_replace('<%%URLVALUE(CEDULA)%%>', urlencode(''), $templateCode);
 		$templateCode = str_replace('<%%VALUE(NOMBRE)%%>', '', $templateCode);

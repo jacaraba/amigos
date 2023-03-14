@@ -20,7 +20,7 @@
 	$x->QueryFieldsTV = [
 		"`amigos`.`LLAVE`" => "LLAVE",
 		"`amigos`.`ESLIDER`" => "ESLIDER",
-		"IF(    CHAR_LENGTH(`lideres1`.`CEDULA`) || CHAR_LENGTH(`lideres1`.`NOMBRE`), CONCAT_WS('',   `lideres1`.`CEDULA`, '-', `lideres1`.`NOMBRE`), '') /* LIDER */" => "LIDER",
+		"`amigos`.`LIDER`" => "LIDER",
 		"`amigos`.`CEDULA`" => "CEDULA",
 		"`amigos`.`NOMBRE`" => "NOMBRE",
 		"`amigos`.`PUESTO`" => "PUESTO",
@@ -36,7 +36,7 @@
 	$x->SortFields = [
 		1 => '`amigos`.`LLAVE`',
 		2 => 2,
-		3 => 3,
+		3 => '`amigos`.`LIDER`',
 		4 => 4,
 		5 => 5,
 		6 => 6,
@@ -53,7 +53,7 @@
 	$x->QueryFieldsCSV = [
 		"`amigos`.`LLAVE`" => "LLAVE",
 		"`amigos`.`ESLIDER`" => "ESLIDER",
-		"IF(    CHAR_LENGTH(`lideres1`.`CEDULA`) || CHAR_LENGTH(`lideres1`.`NOMBRE`), CONCAT_WS('',   `lideres1`.`CEDULA`, '-', `lideres1`.`NOMBRE`), '') /* LIDER */" => "LIDER",
+		"`amigos`.`LIDER`" => "LIDER",
 		"`amigos`.`CEDULA`" => "CEDULA",
 		"`amigos`.`NOMBRE`" => "NOMBRE",
 		"`amigos`.`PUESTO`" => "PUESTO",
@@ -69,7 +69,7 @@
 	$x->QueryFieldsFilters = [
 		"`amigos`.`LLAVE`" => "LLAVE",
 		"`amigos`.`ESLIDER`" => "ES LIDER:",
-		"IF(    CHAR_LENGTH(`lideres1`.`CEDULA`) || CHAR_LENGTH(`lideres1`.`NOMBRE`), CONCAT_WS('',   `lideres1`.`CEDULA`, '-', `lideres1`.`NOMBRE`), '') /* LIDER */" => "LIDER",
+		"`amigos`.`LIDER`" => "LIDER",
 		"`amigos`.`CEDULA`" => "CEDULA",
 		"`amigos`.`NOMBRE`" => "NOMBRE",
 		"`amigos`.`PUESTO`" => "PUESTO",
@@ -86,7 +86,7 @@
 	$x->QueryFieldsQS = [
 		"`amigos`.`LLAVE`" => "LLAVE",
 		"`amigos`.`ESLIDER`" => "ESLIDER",
-		"IF(    CHAR_LENGTH(`lideres1`.`CEDULA`) || CHAR_LENGTH(`lideres1`.`NOMBRE`), CONCAT_WS('',   `lideres1`.`CEDULA`, '-', `lideres1`.`NOMBRE`), '') /* LIDER */" => "LIDER",
+		"`amigos`.`LIDER`" => "LIDER",
 		"`amigos`.`CEDULA`" => "CEDULA",
 		"`amigos`.`NOMBRE`" => "NOMBRE",
 		"`amigos`.`PUESTO`" => "PUESTO",
@@ -100,9 +100,9 @@
 	];
 
 	// Lookup fields that can be used as filterers
-	$x->filterers = ['LIDER' => 'LIDER', ];
+	$x->filterers = [];
 
-	$x->QueryFrom = "`amigos` LEFT JOIN `lideres` as lideres1 ON `lideres1`.`LLAVE`=`amigos`.`LIDER` ";
+	$x->QueryFrom = "`amigos` ";
 	$x->QueryWhere = '';
 	$x->QueryOrder = '';
 

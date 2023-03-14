@@ -107,7 +107,7 @@
 	function get_sql_fields($table_name) {
 		$sql_fields = [
 			'lideres' => "`lideres`.`LLAVE` as 'LLAVE', `lideres`.`ESLIDER` as 'ESLIDER', `lideres`.`LIDER` as 'LIDER', `lideres`.`CEDULA` as 'CEDULA', `lideres`.`NOMBRE` as 'NOMBRE', IF(    CHAR_LENGTH(`divpol20221`.`PUESTO`) || CHAR_LENGTH(`divpol20221`.`nompue`), CONCAT_WS('',   `divpol20221`.`PUESTO`, '-', `divpol20221`.`nompue`), '') as 'PUESTO', `lideres`.`CELULAR` as 'CELULAR', `lideres`.`DIRECCION` as 'DIRECCION', `lideres`.`CORREO` as 'CORREO', `lideres`.`OBSERVACIONES` as 'OBSERVACIONES', `lideres`.`ESTADO` as 'ESTADO'",
-			'amigos' => "`amigos`.`LLAVE` as 'LLAVE', `amigos`.`ESLIDER` as 'ESLIDER', IF(    CHAR_LENGTH(`lideres1`.`CEDULA`) || CHAR_LENGTH(`lideres1`.`NOMBRE`), CONCAT_WS('',   `lideres1`.`CEDULA`, '-', `lideres1`.`NOMBRE`), '') as 'LIDER', `amigos`.`CEDULA` as 'CEDULA', `amigos`.`NOMBRE` as 'NOMBRE', `amigos`.`PUESTO` as 'PUESTO', `amigos`.`NOMPUESTO` as 'NOMPUESTO', `amigos`.`MESA` as 'MESA', `amigos`.`CELULAR` as 'CELULAR', `amigos`.`DIRECCION` as 'DIRECCION', `amigos`.`CORREO` as 'CORREO', `amigos`.`OBSERVACIONES` as 'OBSERVACIONES', `amigos`.`ESTADO` as 'ESTADO'",
+			'amigos' => "`amigos`.`LLAVE` as 'LLAVE', `amigos`.`ESLIDER` as 'ESLIDER', `amigos`.`LIDER` as 'LIDER', `amigos`.`CEDULA` as 'CEDULA', `amigos`.`NOMBRE` as 'NOMBRE', `amigos`.`PUESTO` as 'PUESTO', `amigos`.`NOMPUESTO` as 'NOMPUESTO', `amigos`.`MESA` as 'MESA', `amigos`.`CELULAR` as 'CELULAR', `amigos`.`DIRECCION` as 'DIRECCION', `amigos`.`CORREO` as 'CORREO', `amigos`.`OBSERVACIONES` as 'OBSERVACIONES', `amigos`.`ESTADO` as 'ESTADO'",
 			'divpol2022' => "`divpol2022`.`PUESTO` as 'PUESTO', `divpol2022`.`dd` as 'dd', `divpol2022`.`mm` as 'mm', `divpol2022`.`zz` as 'zz', `divpol2022`.`pp` as 'pp', `divpol2022`.`departamento` as 'departamento', `divpol2022`.`municipio` as 'municipio', `divpol2022`.`nompue` as 'nompue', `divpol2022`.`direccion` as 'direccion', `divpol2022`.`mujeres` as 'mujeres', `divpol2022`.`hombres` as 'hombres', `divpol2022`.`total` as 'total', `divpol2022`.`mesas` as 'mesas'",
 			'municipios' => "`municipios`.`ddmm` as 'ddmm', IF(    CHAR_LENGTH(`departamentos1`.`dd`) || CHAR_LENGTH(`departamentos1`.`departamento`), CONCAT_WS('',   `departamentos1`.`dd`, '-', `departamentos1`.`departamento`), '') as 'dd', `municipios`.`mm` as 'mm', `municipios`.`municipio` as 'municipio'",
 			'departamentos' => "`departamentos`.`dd` as 'dd', `departamentos`.`departamento` as 'departamento'",
@@ -123,7 +123,7 @@
 	function get_sql_from($table_name, $skip_permissions = false, $skip_joins = false, $lower_permissions = false) {
 		$sql_from = [
 			'lideres' => "`lideres` LEFT JOIN `divpol2022` as divpol20221 ON `divpol20221`.`PUESTO`=`lideres`.`PUESTO` ",
-			'amigos' => "`amigos` LEFT JOIN `lideres` as lideres1 ON `lideres1`.`LLAVE`=`amigos`.`LIDER` ",
+			'amigos' => "`amigos` ",
 			'divpol2022' => "`divpol2022` ",
 			'municipios' => "`municipios` LEFT JOIN `departamentos` as departamentos1 ON `departamentos1`.`dd`=`municipios`.`dd` ",
 			'departamentos' => "`departamentos` ",

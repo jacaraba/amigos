@@ -8,21 +8,12 @@
 
 		/* data for selected record, or defaults if none is selected */
 		var data = {
-			LIDER: <?php echo json_encode(['id' => $rdata['LIDER'], 'value' => $rdata['LIDER'], 'text' => $jdata['LIDER']]); ?>
 		};
 
 		/* initialize or continue using AppGini.cache for the current table */
 		AppGini.cache = AppGini.cache || {};
 		AppGini.cache[tn] = AppGini.cache[tn] || AppGini.ajaxCache();
 		var cache = AppGini.cache[tn];
-
-		/* saved value for LIDER */
-		cache.addCheck(function(u, d) {
-			if(u != 'ajax_combo.php') return false;
-			if(d.t == tn && d.f == 'LIDER' && d.id == data.LIDER.id)
-				return { results: [ data.LIDER ], more: false, elapsed: 0.01 };
-			return false;
-		});
 
 		cache.start();
 	});

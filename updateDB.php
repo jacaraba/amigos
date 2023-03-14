@@ -47,7 +47,6 @@
 				`ESTADO` VARCHAR(10) NULL DEFAULT 'INGRESADO'
 			) CHARSET utf8mb4"
 		);
-		setupIndexes('amigos', ['LIDER',]);
 
 		setupTable(
 			'divpol2022', " 
