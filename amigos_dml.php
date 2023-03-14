@@ -13,8 +13,10 @@ function amigos_insert(&$error_message = '') {
 	if(!$arrPerm['insert']) return false;
 
 	$data = [
+		'LIDER' => Request::val('LIDER', '1111111111'),
 		'CEDULA' => Request::val('CEDULA', ''),
 		'NOMBRE' => Request::val('NOMBRE', ''),
+		'PUESTO' => Request::val('PUESTO', ''),
 		'NOMPUESTO' => Request::val('NOMPUESTO', ''),
 		'MESA' => Request::val('MESA', ''),
 		'CELULAR' => Request::val('CELULAR', ''),
@@ -114,8 +116,10 @@ function amigos_update(&$selected_id, &$error_message = '') {
 	if(!check_record_permission('amigos', $selected_id, 'edit')) return false;
 
 	$data = [
+		'LIDER' => Request::val('LIDER', ''),
 		'CEDULA' => Request::val('CEDULA', ''),
 		'NOMBRE' => Request::val('NOMBRE', ''),
+		'PUESTO' => Request::val('PUESTO', ''),
 		'NOMPUESTO' => Request::val('NOMPUESTO', ''),
 		'MESA' => Request::val('MESA', ''),
 		'CELULAR' => Request::val('CELULAR', ''),
@@ -366,8 +370,10 @@ function amigos_form($selected_id = '', $AllowUpdate = 1, $AllowInsert = 1, $All
 	// set records to read only if user can't insert new records and can't edit current record
 	if(($selected_id && !$AllowUpdate && !$AllowInsert) || (!$selected_id && !$AllowInsert)) {
 		$jsReadOnly = '';
+		$jsReadOnly .= "\tjQuery('#LIDER').replaceWith('<div class=\"form-control-static\" id=\"LIDER\">' + (jQuery('#LIDER').val() || '') + '</div>');\n";
 		$jsReadOnly .= "\tjQuery('#CEDULA').replaceWith('<div class=\"form-control-static\" id=\"CEDULA\">' + (jQuery('#CEDULA').val() || '') + '</div>');\n";
 		$jsReadOnly .= "\tjQuery('#NOMBRE').replaceWith('<div class=\"form-control-static\" id=\"NOMBRE\">' + (jQuery('#NOMBRE').val() || '') + '</div>');\n";
+		$jsReadOnly .= "\tjQuery('#PUESTO').replaceWith('<div class=\"form-control-static\" id=\"PUESTO\">' + (jQuery('#PUESTO').val() || '') + '</div>');\n";
 		$jsReadOnly .= "\tjQuery('#NOMPUESTO').replaceWith('<div class=\"form-control-static\" id=\"NOMPUESTO\">' + (jQuery('#NOMPUESTO').val() || '') + '</div>');\n";
 		$jsReadOnly .= "\tjQuery('#MESA').replaceWith('<div class=\"form-control-static\" id=\"MESA\">' + (jQuery('#MESA').val() || '') + '</div>');\n";
 		$jsReadOnly .= "\tjQuery('#CELULAR').replaceWith('<div class=\"form-control-static\" id=\"CELULAR\">' + (jQuery('#CELULAR').val() || '') + '</div>');\n";

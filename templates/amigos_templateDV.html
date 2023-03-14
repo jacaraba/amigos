@@ -18,6 +18,15 @@
 		<div class="col-md-8 col-lg-10" id="amigos_dv_form">
 			<fieldset class="form-horizontal">
 
+				<!-- Field: LIDER -->
+				<div class="form-group amigos-LIDER">
+					<hr class="hidden-md hidden-lg">
+					<label class="control-label col-lg-3" for="LIDER">LIDER</label>
+					<div class="col-lg-9">
+						<input type="text" class="form-control" name="LIDER" id="LIDER" value="<%%VALUE(LIDER)%%>">
+					</div>
+				</div>
+
 				<!-- Field: CEDULA -->
 				<div class="form-group amigos-CEDULA">
 					<hr class="hidden-md hidden-lg">
@@ -33,6 +42,15 @@
 					<label class="control-label col-lg-3" for="NOMBRE">NOMBRE</label>
 					<div class="col-lg-9">
 						<input maxlength="50" type="text" class="form-control" name="NOMBRE" id="NOMBRE" value="<%%VALUE(NOMBRE)%%>">
+					</div>
+				</div>
+
+				<!-- Field: PUESTO -->
+				<div class="form-group amigos-PUESTO">
+					<hr class="hidden-md hidden-lg">
+					<label class="control-label col-lg-3" for="PUESTO">PUESTO</label>
+					<div class="col-lg-9">
+						<input maxlength="9" type="text" class="form-control" name="PUESTO" id="PUESTO" value="<%%VALUE(PUESTO)%%>">
 					</div>
 				</div>
 
@@ -115,7 +133,7 @@
 
 			$j('#amigos_dv_container-loading').addClass('hidden');
 			$j('#amigos_dv_container').removeClass('hidden');
-			if(!$j('.table_view').length || $j('[name=SelectedID]').val().length) AppGini.focusFormElement('amigos', 'CEDULA');
+			if(!$j('.table_view').length || $j('[name=SelectedID]').val().length) AppGini.focusFormElement('amigos', 'LIDER');
 
 			$j('form').eq(0).change(function() {
 				if($j(this).data('already_changed')) return;
