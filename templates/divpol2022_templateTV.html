@@ -1,0 +1,20 @@
+<!-- Edit this file to change the layout of each record in the table view -->
+<!-- To disable clicking of a field, remove the <%%SELECT%%> and <%%ENDSELECT%%> formatters around it-->
+
+<!-- If you wish to hide the table view header that contains the column titles, -->
+<!-- add the following to the divpol2022_init() hook (in hooks/divpol2022.php file) -->
+<!--     $options->ShowTableHeader = 0;     -->
+
+		<td id="divpol2022-PUESTO-<%%VALUE(PUESTO)%%>" class="divpol2022-PUESTO"><%%SELECT%%><%%VALUE(PUESTO)%%><%%ENDSELECT%%></td>
+		<td id="divpol2022-dd-<%%VALUE(PUESTO)%%>" class="divpol2022-dd"><%%SELECT%%><%%VALUE(dd)%%><%%ENDSELECT%%></td>
+		<td id="divpol2022-mm-<%%VALUE(PUESTO)%%>" class="divpol2022-mm"><%%SELECT%%><%%VALUE(mm)%%><%%ENDSELECT%%></td>
+		<td id="divpol2022-zz-<%%VALUE(PUESTO)%%>" class="divpol2022-zz"><%%SELECT%%><%%VALUE(zz)%%><%%ENDSELECT%%></td>
+		<td id="divpol2022-pp-<%%VALUE(PUESTO)%%>" class="divpol2022-pp"><%%SELECT%%><%%VALUE(pp)%%><%%ENDSELECT%%></td>
+		<td id="divpol2022-departamento-<%%VALUE(PUESTO)%%>" class="divpol2022-departamento"><%%SELECT%%><%%VALUE(departamento)%%><%%ENDSELECT%%></td>
+		<td id="divpol2022-municipio-<%%VALUE(PUESTO)%%>" class="divpol2022-municipio"><%%SELECT%%><%%VALUE(municipio)%%><%%ENDSELECT%%></td>
+		<td id="divpol2022-nompue-<%%VALUE(PUESTO)%%>" class="divpol2022-nompue"><%%SELECT%%><%%VALUE(nompue)%%><%%ENDSELECT%%></td>
+		<td id="divpol2022-direccion-<%%VALUE(PUESTO)%%>" class="divpol2022-direccion"><%%SELECT%%><%%VALUE(direccion)%%><%%ENDSELECT%%></td>
+		<td id="divpol2022-mujeres-<%%VALUE(PUESTO)%%>" class="divpol2022-mujeres"><%%SELECT%%><%%VALUE(mujeres)%%><%%ENDSELECT%%></td>
+		<td id="divpol2022-hombres-<%%VALUE(PUESTO)%%>" class="divpol2022-hombres"><%%SELECT%%><%%VALUE(hombres)%%><%%ENDSELECT%%></td>
+		<td id="divpol2022-total-<%%VALUE(PUESTO)%%>" class="divpol2022-total"><%%SELECT%%><%%VALUE(total)%%><%%ENDSELECT%%></td>
+		<td id="divpol2022-mesas-<%%VALUE(PUESTO)%%>" class="divpol2022-mesas"><%%SELECT%%><%%VALUE(mesas)%%><%%ENDSELECT%%></td>

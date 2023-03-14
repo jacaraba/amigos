@@ -1,0 +1,149 @@
+<!-- Edit this file to change the layout of the detail view print preview page -->
+
+
+<div class="panel-heading"><h3 class="panel-title">
+	<strong><%%DETAIL_VIEW_TITLE%%></strong>
+	<div class="hidden-print pull-right">
+		<div class="btn-group">
+			<button type="button" id="print" onclick="window.print();" title="<%%TRANSLATION(Print)%%>" class="btn btn-primary"><i class="glyphicon glyphicon-print"></i> <%%TRANSLATION(Print)%%></button>
+			<button type="submit" id="back" title="<%%TRANSLATION(Cancel Printing)%%>" class="btn btn-default"><i class="glyphicon glyphicon-remove-circle"></i> <%%TRANSLATION(Cancel Printing)%%></button>
+		</div>
+	</div>
+	<div class="clearfix"></div>
+</h3></div>
+
+<div class="panel-body">
+	<fieldset class="form-horizontal">
+		<!-- Field: PUESTO -->
+		<div class="form-group divpol2022-PUESTO" style="border-bottom: dotted 1px #DDD;">
+			<label class="col-xs-3 control-label">PUESTO</label>
+			<div class="col-xs-9">
+				<div class="form-control-static"><%%VALUE(PUESTO)%%></div>
+			</div>
+		</div>
+		<!-- Field: Dd -->
+		<div class="form-group divpol2022-dd" style="border-bottom: dotted 1px #DDD;">
+			<label class="col-xs-3 control-label">Dd</label>
+			<div class="col-xs-9">
+				<div class="form-control-static"><%%VALUE(dd)%%></div>
+			</div>
+		</div>
+		<!-- Field: Mm -->
+		<div class="form-group divpol2022-mm" style="border-bottom: dotted 1px #DDD;">
+			<label class="col-xs-3 control-label">Mm</label>
+			<div class="col-xs-9">
+				<div class="form-control-static"><%%VALUE(mm)%%></div>
+			</div>
+		</div>
+		<!-- Field: Zz -->
+		<div class="form-group divpol2022-zz" style="border-bottom: dotted 1px #DDD;">
+			<label class="col-xs-3 control-label">Zz</label>
+			<div class="col-xs-9">
+				<div class="form-control-static"><%%VALUE(zz)%%></div>
+			</div>
+		</div>
+		<!-- Field: Pp -->
+		<div class="form-group divpol2022-pp" style="border-bottom: dotted 1px #DDD;">
+			<label class="col-xs-3 control-label">Pp</label>
+			<div class="col-xs-9">
+				<div class="form-control-static"><%%VALUE(pp)%%></div>
+			</div>
+		</div>
+		<!-- Field: Departamento -->
+		<div class="form-group divpol2022-departamento" style="border-bottom: dotted 1px #DDD;">
+			<label class="col-xs-3 control-label">Departamento</label>
+			<div class="col-xs-9">
+				<div class="form-control-static"><%%VALUE(departamento)%%></div>
+			</div>
+		</div>
+		<!-- Field: Municipio -->
+		<div class="form-group divpol2022-municipio" style="border-bottom: dotted 1px #DDD;">
+			<label class="col-xs-3 control-label">Municipio</label>
+			<div class="col-xs-9">
+				<div class="form-control-static"><%%VALUE(municipio)%%></div>
+			</div>
+		</div>
+		<!-- Field: Nompue -->
+		<div class="form-group divpol2022-nompue" style="border-bottom: dotted 1px #DDD;">
+			<label class="col-xs-3 control-label">Nompue</label>
+			<div class="col-xs-9">
+				<div class="form-control-static"><%%VALUE(nompue)%%></div>
+			</div>
+		</div>
+		<!-- Field: Direccion -->
+		<div class="form-group divpol2022-direccion" style="border-bottom: dotted 1px #DDD;">
+			<label class="col-xs-3 control-label">Direccion</label>
+			<div class="col-xs-9">
+				<div class="form-control-static"><%%VALUE(direccion)%%></div>
+			</div>
+		</div>
+		<!-- Field: Mujeres -->
+		<div class="form-group divpol2022-mujeres" style="border-bottom: dotted 1px #DDD;">
+			<label class="col-xs-3 control-label">Mujeres</label>
+			<div class="col-xs-9">
+				<div class="form-control-static"><%%VALUE(mujeres)%%></div>
+			</div>
+		</div>
+		<!-- Field: Hombres -->
+		<div class="form-group divpol2022-hombres" style="border-bottom: dotted 1px #DDD;">
+			<label class="col-xs-3 control-label">Hombres</label>
+			<div class="col-xs-9">
+				<div class="form-control-static"><%%VALUE(hombres)%%></div>
+			</div>
+		</div>
+		<!-- Field: Total -->
+		<div class="form-group divpol2022-total" style="border-bottom: dotted 1px #DDD;">
+			<label class="col-xs-3 control-label">Total</label>
+			<div class="col-xs-9">
+				<div class="form-control-static"><%%VALUE(total)%%></div>
+			</div>
+		</div>
+		<!-- Field: Mesas -->
+		<div class="form-group divpol2022-mesas" style="border-bottom: dotted 1px #DDD;">
+			<label class="col-xs-3 control-label">Mesas</label>
+			<div class="col-xs-9">
+				<div class="form-control-static"><%%VALUE(mesas)%%></div>
+			</div>
+		</div>
+	</fieldset>
+</div>
+<script>
+	$j(function() {
+		// render read-only checkboxes in DVP
+		$j('form input[type=checkbox]:not(.hidden):checked')
+			.addClass('hidden')
+			.after('<i class="glyphicon glyphicon-check"></i>');
+		$j('form input[type=checkbox]:not(.hidden):not(:checked)')
+			.addClass('hidden')
+			.after('<i class="glyphicon glyphicon-unchecked"></i>')
+	})
+</script>
+<!-- child records -->
+<div class="panel-body">
+	<div id="divpol2022-children"></div>
+</div>
+
+<script>
+	$j(function() {
+		/* prevent loading child records in multiple DVP */
+		if($j('[id=divpol2022-children]').length > 1) return;
+
+		post(
+			'parent-children.php', {
+				ParentTable: 'divpol2022',
+				SelectedID: '<%%VALUE(PUESTO)%%>',
+				Operation: 'show-children-printable'
+			},
+			'divpol2022-children',
+			'disable-element',
+			'loading-element',
+			apply_persisting_children
+		);
+
+		$j('form').on('click', '#children-tabs button[data-target]', function() {
+			$j(this).toggleClass('active');
+			persist_expanded_child($j(this).attr('id'));
+		});
+	})
+</script>
+

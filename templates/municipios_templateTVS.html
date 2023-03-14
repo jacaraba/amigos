@@ -1,0 +1,11 @@
+<!-- Edit this file to change the layout of each record in the table view -->
+<!-- To disable clicking of a field, remove the  and  formatters around it-->
+
+<!-- If you wish to hide the table view header that contains the column titles, -->
+<!-- add the following to the municipios_init() hook (in hooks/municipios.php file) -->
+<!--     $options->ShowTableHeader = 0;     -->
+
+		<td id="municipios-ddmm-<%%VALUE(ddmm)%%>" class="municipios-ddmm"><%%VALUE(ddmm)%%></td>
+		<td id="municipios-dd-<%%VALUE(ddmm)%%>" class="municipios-dd"><%%VALUE(dd)%%></td>
+		<td id="municipios-mm-<%%VALUE(ddmm)%%>" class="municipios-mm"><%%VALUE(mm)%%></td>
+		<td id="municipios-municipio-<%%VALUE(ddmm)%%>" class="municipios-municipio"><%%VALUE(municipio)%%></td>

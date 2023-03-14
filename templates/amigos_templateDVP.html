@@ -1,0 +1,78 @@
+<!-- Edit this file to change the layout of the detail view print preview page -->
+
+
+<div class="panel-heading"><h3 class="panel-title">
+	<strong><%%DETAIL_VIEW_TITLE%%></strong>
+	<div class="hidden-print pull-right">
+		<div class="btn-group">
+			<button type="button" id="print" onclick="window.print();" title="<%%TRANSLATION(Print)%%>" class="btn btn-primary"><i class="glyphicon glyphicon-print"></i> <%%TRANSLATION(Print)%%></button>
+			<button type="submit" id="back" title="<%%TRANSLATION(Cancel Printing)%%>" class="btn btn-default"><i class="glyphicon glyphicon-remove-circle"></i> <%%TRANSLATION(Cancel Printing)%%></button>
+		</div>
+	</div>
+	<div class="clearfix"></div>
+</h3></div>
+
+<div class="panel-body">
+	<fieldset class="form-horizontal">
+		<!-- Field: CEDULA -->
+		<div class="form-group amigos-CEDULA" style="border-bottom: dotted 1px #DDD;">
+			<label class="col-xs-3 control-label">CEDULA</label>
+			<div class="col-xs-9">
+				<div class="form-control-static"><%%VALUE(CEDULA)%%></div>
+			</div>
+		</div>
+		<!-- Field: NOMBRE -->
+		<div class="form-group amigos-NOMBRE" style="border-bottom: dotted 1px #DDD;">
+			<label class="col-xs-3 control-label">NOMBRE</label>
+			<div class="col-xs-9">
+				<div class="form-control-static"><%%VALUE(NOMBRE)%%></div>
+			</div>
+		</div>
+		<!-- Field: PUESTO -->
+		<div class="form-group amigos-PUESTO" style="border-bottom: dotted 1px #DDD;">
+			<label class="col-xs-3 control-label">PUESTO</label>
+			<div class="col-xs-9">
+				<div class="form-control-static"><%%VALUE(PUESTO)%%></div>
+			</div>
+		</div>
+		<!-- Field: NOMBRE DEL PUESTO -->
+		<div class="form-group amigos-NOMPUESTO" style="border-bottom: dotted 1px #DDD;">
+			<label class="col-xs-3 control-label">NOMBRE DEL PUESTO</label>
+			<div class="col-xs-9">
+				<div class="form-control-static"><%%VALUE(NOMPUESTO)%%></div>
+			</div>
+		</div>
+		<!-- Field: MESA -->
+		<div class="form-group amigos-MESA" style="border-bottom: dotted 1px #DDD;">
+			<label class="col-xs-3 control-label">MESA</label>
+			<div class="col-xs-9">
+				<div class="form-control-static"><%%VALUE(MESA)%%></div>
+			</div>
+		</div>
+		<!-- Field: CELULAR -->
+		<div class="form-group amigos-CELULAR" style="border-bottom: dotted 1px #DDD;">
+			<label class="col-xs-3 control-label">CELULAR</label>
+			<div class="col-xs-9">
+				<div class="form-control-static"><%%VALUE(CELULAR)%%></div>
+			</div>
+		</div>
+		<!-- Field: DIRECCION -->
+		<div class="form-group amigos-DIRECCION" style="border-bottom: dotted 1px #DDD;">
+			<label class="col-xs-3 control-label">DIRECCION</label>
+			<div class="col-xs-9">
+				<div class="form-control-static"><%%VALUE(DIRECCION)%%></div>
+			</div>
+		</div>
+	</fieldset>
+</div>
+<script>
+	$j(function() {
+		// render read-only checkboxes in DVP
+		$j('form input[type=checkbox]:not(.hidden):checked')
+			.addClass('hidden')
+			.after('<i class="glyphicon glyphicon-check"></i>');
+		$j('form input[type=checkbox]:not(.hidden):not(:checked)')
+			.addClass('hidden')
+			.after('<i class="glyphicon glyphicon-unchecked"></i>')
+	})
+</script>
